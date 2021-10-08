@@ -1,2 +1,2 @@
 # Web-e-learning
-funtion login and register complete
+function login and register complete
