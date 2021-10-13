@@ -39,9 +39,8 @@
                         <i class="fas fa-graduation-cap"></i> Đại học - Cao đẳng
                     </p>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item" href="#">Link 1</a>
-                        <a class="dropdown-item" href="#">Link 2</a>
-                        <a class="dropdown-item" href="#">Link 3</a>
+                        <a class="dropdown-item" href="#">Toán Cao Cấp</a>
+                        <a class="dropdown-item" href="#">TOEIC</a>
                     </div>
                 </li>
                 <li class="dropdown dropright">
@@ -49,9 +48,9 @@
                         <i class="fas fa-graduation-cap"></i> Khóa học bổ trợ
                     </p>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item" href="#">Link 1</a>
-                        <a class="dropdown-item" href="#">Link 2</a>
-                        <a class="dropdown-item" href="#">Link 3</a>
+                        <a class="dropdown-item" href="#">Toán</a>
+                        <a class="dropdown-item" href="#">Văn</a>
+                        <a class="dropdown-item" href="#">Tiếng Anh</a>
                     </div>
                 </li>
                 <li class="dropdown dropright">
@@ -59,9 +58,7 @@
                         <i class="fas fa-graduation-cap"></i> Bồi dưỡng học sinh giỏi
                     </p>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item" href="#">Link 1</a>
-                        <a class="dropdown-item" href="#">Link 2</a>
-                        <a class="dropdown-item" href="#">Link 3</a>
+                        <a class="dropdown-item" href="#">Toán</a>
                     </div>
                 </li>
                 <li class="dropdown dropright">

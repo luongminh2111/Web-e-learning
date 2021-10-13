@@ -46,13 +46,10 @@
                 <div class="dropdown">
                     <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
                         <i class="fas fa-user"></i>
-                        <?php echo "".session()->get('name') ?>
+                        <?php echo session()->get('username') ?>
                     </button>
                     <div class="dropdown-menu">
                         <a class="dropdown-item" href="{{route('profile')}}">Profile</a>
-                        <a class="dropdown-item" href="#">Lịch sử khóa học</a>
-                        <a class="dropdown-item" href="#">Khóa học đã tham gia</a>
-                        <a class="dropdown-item" href="#">Các chứng chỉ đạt được</a>
                         <a class="dropdown-item" href="logout">Đăng xuất</a>
 
                     </div>
@@ -62,11 +59,11 @@
                 <div class="dropdown">
                     <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
                         <i class="fas fa-user"></i>
-                        <?php echo "".session()->get('name') ?>
+                        <?php echo session()->get('username') ?>
                     </button>
                     <div class="dropdown-menu">
                         <a class="dropdown-item" href="{{route('profile')}}">Profile</a>
-                        <a class="dropdown-item" href="#">Tải lên khóa học</a>
+                        <a class="dropdown-item" href="{{route('list_course')}}">Thông tin khóa học</a>
                         <a class="dropdown-item" href="#">Tải lên đề thi</a>
                         <a class="dropdown-item" href="logout">Đăng xuất</a>
                     </div>
@@ -91,6 +88,9 @@
     @yield('profile')
     @yield('update-profile')
     @yield('change_password')
+    @yield('list-course')
+    @yield('upload-course')
+    @yield('update-course')
     <div class="foot-top">
         <div class="foot-child foot-info">
             <ul>

@@ -11,9 +11,8 @@
                     <a href="{{route('profile')}}" class="list-group-item list-group-item-action">PROFILE</a>
                     <a href="{{route('update_profile')}}" class="list-group-item list-group-item-action ">Cập nhật thông tin</a>
                     <a href="{{route('change_password')}}" class="list-group-item list-group-item-action active">Thay đổi mật khẩu</a>
-                    <a href="#" class="list-group-item list-group-item-action">New</a>
-                    <a href="#" class="list-group-item list-group-item-action">Comments</a>
-                    <a href="#" class="list-group-item list-group-item-action">Settings</a>
+                    <a href="#" class="list-group-item list-group-item-action">Lịch sử khóa học</a>
+                    <a href="#" class="list-group-item list-group-item-action">Các khóa học đã học</a>
 
                 </div>
             </div>

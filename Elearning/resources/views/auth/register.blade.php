@@ -31,7 +31,7 @@
                 <h3 class="register-heading">Đăng ký tài khoản</h3>
                 <div class="row register-form">
                         <div class="col-md-12">
-                            <form action="" method="post" enctype="multipart/form-data">
+                            <form action="{{route('register')}}" method="post" enctype="multipart/form-data">
                                 @csrf
                                 <div class="form-group">
                                     <input type="email" class="form-control" placeholder="Email" value="" name="email"/>
@@ -43,8 +43,8 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="Tài khoản" value="" name="name"/>
-                                    <span style="color: red">@error('name'){{$message}}@enderror</span>
+                                    <input type="text" class="form-control" placeholder="Tài khoản" value="" name="username"/>
+                                    <span style="color: red">@error('username'){{$message}}@enderror</span>
                                 </div>
                                 <div class="form-group">
                                     <input type="password" class="form-control" placeholder="Mật khẩu" value="" name="password" />
