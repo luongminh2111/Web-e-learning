@@ -4,7 +4,10 @@ Các chức năng đã hoàn thiện:
 + xem thông tin cá nhân
 + cập nhật thông tin cá nhân
 + thay đổi mật khẩu
++ =>đối với tk giáo viên:
 +upload khóa học
++cập nhật khóa học
++Xem danh sách khóa học
 
 
 chạy project laravel:
@@ -44,3 +47,4 @@ php artisan migrate:refresh  => chạy cài đặt các bảng trên mysql
 php artsan make:controller HomeController  => tạo controller có tên HomeController
 php artisan make:model User                 => tạo model có tên User
 ......
+php artisan migrate:refresh --path=/database/migrations/2021_10_10_115000_create_librarys_table.php
