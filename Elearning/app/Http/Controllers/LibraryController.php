@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Library;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
@@ -14,17 +15,22 @@ class LibraryController extends Controller
     }
     public function list_documents(){
         if (Auth::user()->role== "lecture"){
-            $current_email = auth()->user()->email;
-            $lecture_name = DB::table('lectures')->where('email','LIKE',$current_email)->get()->first();
-            $name = $lecture_name->first_name." ".$lecture_name->last_name;
             $list_documents = DB::table('libraries')
                 ->join('lectures', 'libraries.lecture_email', '=', 'lectures.email')
-                ->get(['subject_name','title','author', 'grade'])->all();
-            return view('library.list_documents',['list_documents'=>$list_documents,'lecture_name'=>$name]);
+                ->paginate(10);
+            Paginator::useBootstrap();
+            return view('library.list_documents',['list_documents'=>$list_documents]);
         }
         else{
             return redirect()->with('error','error')->route('login');
         }
+    }
+    public function views_detail($slug){
+        $result = DB::table('libraries')
+            ->where('slug','=',$slug)
+            ->get()->first();
+
+        return view('library.views_detail',compact('result'));
     }
     public function upload_documents(){
         if (Auth::user()->role== "lecture"){
@@ -37,33 +43,54 @@ class LibraryController extends Controller
     public function check_upload_documents(Request $request){
         $request->validate([
             'subject_name'=>'required|string',
+            'document_id'=>'required',
             'grade'=>'required|numeric',
             'title'=>'required|string',
-            'contents'=>'required',
+            'upload_content'=>'required',
             'author'=>'required|string',
             'slug'=>'required'
         ]);
     }
+    public function check_exits_document(Request  $request){
+        $result = DB::table('libraries')
+            ->where('document_id',$request->document_id)
+            ->exists();
+        if($result == true){
+            return false;
+        }
+        else{
+            return true;
+        }
+    }
     public function post_upload_documents(Request $request){
         $this->check_upload_documents($request);
-        $content = $request->contents;
-        $file_name = time().'.'.$content->getClientOriginaleXtension();
-        $request->contents->move('assets',$file_name);
 
-        Library::create([
-            'lecture_email'=>auth()->user()->email,
-            'subject_name'=>$request->subject_name,
-            'grade'=>$request->grade,
-            'title'=>$request->title,
-            'content'=>$file_name,
-            'author'=>$request->author,
-            'slug'=>$request->slug,
-        ]);
-        return redirect()->back()->with('success','Tải lên thành công!');
+        if($this->check_exits_document($request) == true){
+            $file_name = $request->upload_content->getClientOriginalName();
+            $request->upload_content->move('assets',$file_name);
+            Library::create([
+                'lecture_email'=>auth()->user()->email,
+                'subject_name'=>$request->subject_name,
+                'document_id'=>$request->document_id,
+                'grade'=>$request->grade,
+                'title'=>$request->title,
+                'content'=>$file_name,
+                'author'=>$request->author,
+                'slug'=>$request->slug,
+            ]);
+            return redirect()->back()->with('success', 'Tải lên thành công!');
+        }
+        else{
+            return redirect()->back()->with('error','ID tài liệu đã tồn tại, vui lòng nhập ID mới.');
+        }
+
     }
-    public function update_documents(){
+    public function update_documents($document_id){
         if (Auth::user()->role== "lecture"){
-            return view('library.update_documents');
+            $result = DB::table('libraries')
+                ->where('document_id','=',$document_id)
+                ->get()->first();
+            return view('library.update_documents',compact('result'));
         }
         else{
             return redirect()->with('error','error')->route('login');
@@ -71,43 +98,70 @@ class LibraryController extends Controller
     }
     public function check_update_documents(Request $request){
         $request->validate([
-            'subject_name'=>'required|string',
-            'grade'=>'required|numeric',
+            'grade'=>'required',
             'title'=>'required|string',
-            'contents'=>'required',
             'author'=>'required|string',
             'slug'=>'required'
         ]);
-    }
-    public function post_update_documents(Request $request){
-        $this->check_update_documents($request);
-        $content = $request->contents;
-        $file_name = time().'.'.$content->getClientOriginaleXtension();
-
-        $request->contents->move('assets',$file_name);
-        Library::update([
-            'subject_name'=>$request->subject_name,
-            'grade'=>$request->grade,
-            'title'=>$request->title,
-            'content'=>$file_name,
-            'author'=>$request->author,
-            'slug'=>$request->slug,
-        ]);
-        return redirect()->back()->with('success','Cập nhật thành công!');
-    }
-    public function find_documents(Request $request){
-        $search = $request->input('query');
-        $current_email = auth()->user()->email;
-        $lecture_name = DB::table('lectures')->where('email','LIKE',$current_email)->get()->first();
-        $name = $lecture_name->first_name." ".$lecture_name->last_name;
-        $search_documents = DB::table('libraries')
-            ->where('subject_name','LIKE',$search)->get()->first();
-        if($search_documents != NULL){
-            return view('library.update_documents',['result'=>$search_documents, 'name'=>$name]);
+        if($request->upload_content == null){
+            $request->validate([
+                'current_content'=>'required',
+            ]);
         }
-        else
-            return redirect()->back()->with('error','Không tìm thấy!');
+        else{
+            $request->validate([
+                'upload_content'=>'required',
+            ]);
+        }
     }
+    public function post_update_documents(Request $request, $subject_name, $document_id)
+    {
+        $this->check_update_documents($request);
+        if ($request->upload_content == null) {
+            $result = DB::table('libraries')
+                ->where('subject_name', '=', $subject_name)
+                ->where('document_id', '=', $document_id)
+                ->update([
+                    'grade' => $request->grade,
+                    'title' => $request->title,
+                    'author' => $request->author,
+                    'slug' => $request->slug,
+                ]);
+            if($result == 1){
+                return redirect()->back()->with('success', 'Cập nhật thành công!');
+            }
+            else{
+                return redirect()->back()->with('error', 'Cập nhật thất bại! Vui lòng thử lại');
+            }
+        }
+        if ($request->upload_content != null) {
+            if($request->current_content != null){
+                $file_path = public_path()."/assets/".$request->current_content;
+                if($file_path != null){
+                    unlink($file_path);
+                }
+            }
+            $file_name = $request->upload_content->getClientOriginalName();
+            $request->upload_content->move('assets', $file_name);
+            $result = DB::table('libraries')
+                ->where('subject_name', '=', $subject_name)
+                ->where('document_id', '=', $document_id)
+                ->update([
+                    'grade' => $request->grade,
+                    'title' => $request->title,
+                    'content'=>$file_name,
+                    'author' => $request->author,
+                    'slug' => $request->slug,
+                ]);
+            if($result == 1){
+                return redirect()->back()->with('success', 'Cập nhật thành công!');
+            }
+            else{
+                return redirect()->back()->with('error', 'Cập nhật thất bại! Vui lòng thử lại');
+            }
+        }
+    }
+
     public function views($slug){
         $data = Library::find($slug);
         return view('library.library_views',compact('data'));
@@ -147,5 +201,20 @@ class LibraryController extends Controller
     }
     public function view_grade_1(){
         return view('library.grade.grade_1');
+    }
+    public function views_all($subject_name){
+        $data = DB::table('libraries')
+            ->where('subject_name','=',$subject_name)
+            ->paginate(12);
+        Paginator::useBootstrap();
+        return view('library.views_all',compact('data'));
+    }
+    public function views_grade_all($subject_name, $grade){
+        $data = DB::table('libraries')
+            ->where('subject_name','=',$subject_name)
+            ->where('grade', '=', $grade)
+            ->paginate(12);
+        Paginator::useBootstrap();
+        return view('library.views_all',compact('data'));
     }
 }

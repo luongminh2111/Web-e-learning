@@ -32,6 +32,8 @@ class ProfileController extends Controller
             'degree'=>'required',
             'level_name'=>'required',
             'work_address'=>'required',
+            'avatar'=>'required|image|mimes:jpeg,png,jpg,gif,svg',
+            'university'=>'string'
         ]);
         return $request->input();
     }
@@ -52,13 +54,19 @@ class ProfileController extends Controller
         }
         if($request->work == "lecture"){
             $this->check_lecture_validate($request);
+            $avatar = $request->avatar;
+            $avatar_name = time().'.'.$avatar->getClientOriginaleXtension();
+            $request->avatar->move('lecture',$avatar_name);
+
             Lecture::find(Auth::user()->email)->update([
                 'phone'=>$request->phone,
+                'avatar'=>$avatar_name,
                 'first_name'=>$request->first_name,
                 'last_name'=>$request->last_name,
                 'age'=>$request->age,
                 'degree'=>$request->degree,
                 'level_name'=>$request->level_name,
+                'university'=>$request->university,
                 'work_address'=>$request->work_address,
             ]);
         }

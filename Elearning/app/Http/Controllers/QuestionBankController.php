@@ -1,0 +1,193 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\CourseTests;
+use App\Models\LessonTests;
+use App\Models\QuestionBank;
+use Illuminate\Http\Request;
+use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\DB;
+
+class QuestionBankController extends Controller
+{
+    public function show(){
+        if(auth()->user()->role == "lecture"){
+            $list_question =  DB::table('question_banks')->paginate(20);
+            Paginator::useBootstrap();
+            return view('course.question_bank', compact('list_question'));
+        }
+        else{
+            return redirect();
+        }
+    }
+    public function views_detail($id){
+        $result = QuestionBank::find($id);
+        return view('course.question_bank_views_detail',compact('result'));
+    }
+    public function insert_question($id){
+        return view('course.insert_question',compact('id'));
+    }
+    public function check_exits_question(Request $request, $data){
+        $result = DB::table('course_tests')
+            ->where('course_id','=',$request->course_id)
+            ->where('question',$data->question)
+            ->get(['choose_1','choose_2','choose_3','choose_4'])->first();
+        if($result != null){
+            $arr1 = [$result->choose_1, $result->choose_2, $result->choose_3 , $result->choose_4];
+            $arr2 = [$data->choose_1, $data->choose_2, $data->choose_3 , $data->choose_4];
+            $check = array_intersect($arr1, $arr2);
+            $number = sizeof($check);
+            if($number == 4){
+                return false;
+            }
+            else{
+                return true;
+            }
+        }
+        else{
+            return true;
+        }
+    }
+    public function post_insert_question(Request $request, $id){
+        $request->validate([
+           'course_id'=>'required'
+        ]);
+        $check_course = DB::table('courses')
+            ->where('course_id',$request->course_id)
+            ->exists();
+        if($check_course == false){
+            return redirect()->back()->with('error','Mã khóa học không tồn tại, vui lòng thử lại');
+        }
+        else{
+            $check_user = DB::table('course_tests')
+                ->where('course_id','=',$request->course_id)
+                ->get('username')->first();
+            $data = DB::table('course_tests')->where('course_id','=',$request->course_id)->get()->all();
+            $next_id = count($data)+1;
+            if(auth()->user()->username == $check_user->username){
+                $new_data= DB::table('question_banks')->where('id','=',$id)
+                    ->get()->first();
+                if ($this->check_exits_question($request, $new_data) == true){
+                    CourseTests::create([
+                        'username'=>auth()->user()->username,
+                        'course_id'=>$request->course_id,
+                        'id'=>$next_id,
+                        'question'=>$new_data->question,
+                        'choose_1'=>$new_data->choose_1,
+                        'choose_2'=>$new_data->choose_2,
+                        'choose_3'=>$new_data->choose_3,
+                        'choose_4'=>$new_data->choose_4,
+                        'answer'=>$new_data->answer,
+                        'point'=>$new_data->point
+                    ]);
+                    return redirect()->back()->with('success','Thêm thành công!.');
+                }
+                else{
+                    return redirect()->back()->with('error','Câu hỏi đã tồn tại trong bài kiểm tra!');
+                }
+            }
+            else{
+                return redirect()->back()->with('error','Bạn không sở hữu khóa học này!');
+            }
+        }
+    }
+    public function check_exits_lesson_question(Request $request, $data){
+        $result = DB::table('lesson_tests')
+            ->where('course_id','=',$request->course_id)
+            ->where('lesson_id','=',$request->lesson_id)
+            ->where('question','=',$data->question)
+            ->get(['choose_1','choose_2','choose_3','choose_4'])->first();
+        if($result != null){
+            $arr1 = [$result->choose_1, $result->choose_2, $result->choose_3 , $result->choose_4];
+            $arr2 = [$data->choose_1, $data->choose_2, $data->choose_3 , $data->choose_4];
+            $check = array_intersect($arr1, $arr2);
+            $number = sizeof($check);
+            if($number == 4){
+                return false;
+            }
+            else{
+                return true;
+            }
+        }
+        else{
+            return true;
+        }
+    }
+    public function post_insert_lesson_question(Request $request, $id){
+        $request->validate([
+            'course_id'=>'required',
+            'lesson_id'=>'required'
+        ]);
+        $check_course = DB::table('lessons')
+            ->where('course_id',$request->course_id)
+            ->where('lesson_id',$request->lesson_id)
+            ->exists();
+        if($check_course == false){
+            return redirect()->back()->with('error','Bài học không tồn tại, vui lòng thử lại');
+        }
+        else{
+            $check_user = DB::table('lesson_tests')
+                ->where('course_id','=',$request->course_id)
+                ->where('lesson_id','=',$request->lesson_id)
+                ->get('username')->first();
+            $data = DB::table('lesson_tests')
+                ->where('course_id','=',$request->course_id)
+                ->where('lesson_id','=',$request->lesson_id)
+                ->get()->all();
+            if(count($data) == 0){
+                $next_id = count($data)+1;
+                $new_data= DB::table('question_banks')->where('id','=',$id)
+                    ->get()->first();
+                if ($this->check_exits_lesson_question($request, $new_data) == true){
+                    LessonTests::create([
+                        'username'=>auth()->user()->username,
+                        'course_id'=>$request->course_id,
+                        'lesson_id'=>$request->lesson_id,
+                        'question_id'=>$next_id,
+                        'question'=>$new_data->question,
+                        'choose_1'=>$new_data->choose_1,
+                        'choose_2'=>$new_data->choose_2,
+                        'choose_3'=>$new_data->choose_3,
+                        'choose_4'=>$new_data->choose_4,
+                        'answer'=>$new_data->answer,
+                        'point'=>$new_data->point
+                    ]);
+                    return redirect()->back()->with('success','Thêm thành công!.');
+                }
+                else{
+                    return redirect()->back()->with('error','Câu hỏi đã tồn tại trong bài kiểm tra!');
+                }
+            }
+            else{
+                $next_id = count($data)+1;
+                if(auth()->user()->username == $check_user->username){
+                    $new_data= DB::table('question_banks')->where('id','=',$id)
+                        ->get()->first();
+                    if ($this->check_exits_lesson_question($request, $new_data) == true){
+                        LessonTests::create([
+                            'username'=>auth()->user()->username,
+                            'course_id'=>$request->course_id,
+                            'lesson_id'=>$request->lesson_id,
+                            'question_id'=>$next_id,
+                            'question'=>$new_data->question,
+                            'choose_1'=>$new_data->choose_1,
+                            'choose_2'=>$new_data->choose_2,
+                            'choose_3'=>$new_data->choose_3,
+                            'choose_4'=>$new_data->choose_4,
+                            'answer'=>$new_data->answer,
+                            'point'=>$new_data->point
+                        ]);
+                        return redirect()->back()->with('success','Thêm thành công!.');
+                    }
+                    else{
+                        return redirect()->back()->with('error','Câu hỏi đã tồn tại trong bài kiểm tra!');
+                    }
+                }
+                else{
+                    return redirect()->back()->with('error','Bạn không sở hữu khóa học này!');
+                }
+            }
+        }
+    }
+}

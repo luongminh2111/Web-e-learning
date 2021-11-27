@@ -18,7 +18,6 @@ class Course extends Model
         'subject_id',
         'grade',
         'video',
-        'test',
         'description',
         'requirements',
         'outcomes',

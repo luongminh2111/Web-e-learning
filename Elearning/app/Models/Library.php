@@ -14,6 +14,7 @@ class Library extends Model
     protected $fillable = [
         'lecture_email',
         'subject_name',
+        'document_id',
         'grade',
         'title',
         'content',

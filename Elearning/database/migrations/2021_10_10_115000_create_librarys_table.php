@@ -16,6 +16,7 @@ class CreateLibrarysTable extends Migration
         Schema::create('libraries', function (Blueprint $table) {
             $table->string('lecture_email');
             $table->string('subject_name');
+            $table->string('document_id')->unique();
             $table->integer('grade');
             $table->string('title');
             $table->string('content');

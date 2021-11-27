@@ -16,11 +16,11 @@ class Lecture extends Model
         'first_name',
         'last_name',
         'phone',
+        'avatar',
+        'university',
         'age',
         'degree',
         'level_name',
-        'subject_id',
-        'course_id',
         'work_address',
     ];
     protected $primaryKey = 'email';

@@ -21,7 +21,7 @@
             margin: 2% auto;
         }
         .body .container .menu p{
-           font-size: large;
+            font-size: large;
         }
         .body .container .menu p a{
             text-decoration: none;
@@ -79,7 +79,7 @@
                     <div class="dropdown-menu" >
                         <a class="dropdown-item" href="{{route('profile')}}">Profile</a>
                         <a class="dropdown-item" href="{{route('list_course')}}">Thông tin khóa học</a>
-                        <a class="dropdown-item" href="{{route('list_documents')}}">Tải lên đề thi</a>
+                        <a class="dropdown-item" href="{{route('list_documents')}}">Tải lên tài liệu</a>
                         <a class="dropdown-item" href="{{route('logout')}}">Đăng xuất</a>
                     </div>
                 </div>
@@ -101,6 +101,11 @@
 </div>
 <div class="body">
     <div class="container">
+        <div class="row">
+            <div class="book" style="width: 100%; height: 400px; margin-top: 2%; margin-bottom: 2%">
+                <img src="/image/sach.jpg" alt="book" style="width: 100%; height: 100%">
+            </div>
+        </div>
         <div class="menu">
             <p><a href="{{route('home')}}">Trang chủ</a> > Thư viện </p>
         </div>
@@ -139,6 +144,7 @@
                         @yield('grade_3')
                         @yield('grade_2')
                         @yield('grade_1')
+                        @yield('views-all')
 
                     </div>
                 </div>

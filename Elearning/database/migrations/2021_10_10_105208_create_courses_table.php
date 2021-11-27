@@ -15,15 +15,14 @@ class CreateCoursesTable extends Migration
     {
         Schema::create('courses', function (Blueprint $table) {
             $table->string('lecture_email');
-            $table->string('course_id');
+            $table->string('course_id')->unique();
             $table->string('course_name');
-            $table->string('subject_id');
+            $table->string('subject_name');
             $table->integer('grade');
             $table->string('video')->nullable();
-            $table->string('test')->nullable();
-            $table->string('description')->nullable();
-            $table->string('requirements')->nullable();
-            $table->string('outcomes')->nullable();
+            $table->text('description')->nullable();
+            $table->text('requirements')->nullable();
+            $table->text('outcomes')->nullable();
             $table->string('des_image')->nullable();
             $table->string('slug')->primary();
             $table->timestamps();

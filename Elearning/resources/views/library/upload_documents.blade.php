@@ -4,13 +4,18 @@
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
-    <div class="container" style="margin: 5% 0">
+    <div class="container" style="margin-top: 5%; margin-bottom: 5%">
+        <div class="home">
+            <p style="font-size: 18px; margin-top: 1%; margin-bottom: 3%"><a href="{{route('home')}}"><i class="fas fa-home"></i>Trang chủ</a>
+                >
+                <a href="{{route('list_documents')}}}">Tài liệu</a>
+                > Thêm tài liệu</p>
+        </div>
         <div class="row">
             <div class="col-md-3 ">
                 <div class="list-group ">
                     <p class="list-group-item list-group-item-action bg-success text-white ">Quản lí tài liệu</p>
                     <a href="{{route('list_documents')}}" class="list-group-item list-group-item-action  ">Danh sách tài liệu</a>
-                    <a href="{{route('update_documents')}}" class="list-group-item list-group-item-action">Cập nhật tài liệu</a>
                     <a href="{{route('upload_documents')}}" class="list-group-item list-group-item-action active">Thêm mới</a>
 
                 </div>
@@ -44,18 +49,39 @@
                                             <select  name="subject_name"  class="custom-select">
                                                 <option value=""></option>
                                                 <option value="Toán">Toán</option>
-                                                <option value="Vật lý">Vật lý</option>
+                                                <option value="Vật lý">Vật Lý</option>
                                                 <option value="Hóa Học">Hóa học</option>
                                                 <option value="Văn">Văn</option>
-                                                <option value="Tiếng anh">Tiếng anh</option>
+                                                <option value="Tiếng anh">Tiếng Anh</option>
                                             </select>
                                             <span style="color: red">@error('subject_name'){{$message}}@enderror</span>
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label for="course_id" class="col-4 col-form-label">Khối lớp</label>
+                                        <label for="document_id" class="col-4 col-form-label">Mã tài liệu</label>
                                         <div class="col-8">
-                                            <input name="grade" class="form-control here" type="text">
+                                            <input name="document_id" class="form-control here" type="text">
+                                            <span style="color: red">@error('document_id'){{$message}}@enderror</span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="grade" class="col-4 col-form-label">Khối lớp</label>
+                                        <div class="col-8">
+                                            <select name="grade"  class="custom-select">
+                                                <option value=""></option>
+                                                <option value="12">12</option>
+                                                <option value="11">11</option>
+                                                <option value="10">10</option>
+                                                <option value="9">9</option>
+                                                <option value="8">8</option>
+                                                <option value="7">7</option>
+                                                <option value="6">6</option>
+                                                <option value="5">5</option>
+                                                <option value="4">4</option>
+                                                <option value="3">3</option>
+                                                <option value="2">2</option>
+                                                <option value="1">1</option>
+                                            </select>
                                             <span style="color: red">@error('grade'){{$message}}@enderror</span>
                                         </div>
                                     </div>
@@ -83,9 +109,9 @@
                                     </div>
                                     <div class="form-group row">
                                         <div class="custom-file ">
-                                            <label for="contents" class="col-4 col-form-label">Chọn tài liệu</label>
-                                            <input type="file" name="contents" >
-                                            <span style="color: red">@error('contents'){{$message}}@enderror</span>
+                                            <label for="upload_content" class="col-4 col-form-label">Chọn tài liệu</label>
+                                            <input type="file" name="upload_content" >
+                                            <span style="color: red">@error('upload_content'){{$message}}@enderror</span>
                                         </div>
                                     </div>
                                     <div class="form-group row">

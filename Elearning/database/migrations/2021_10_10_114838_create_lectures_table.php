@@ -22,8 +22,8 @@ class CreateLecturesTable extends Migration
             $table->string('degree')->nullable();
             $table->string('level_name')->nullable();
             $table->string('work_address')->nullable();
-//            $table->string('avatar')->nullable();
-//            $table->string('university')->nullable();
+            $table->string('avatar')->nullable();
+            $table->string('university')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

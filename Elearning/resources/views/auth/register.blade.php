@@ -12,7 +12,7 @@
 </head>
 <body>
 
-    <div class="container register">
+<div class="container register">
     <div class="row">
         <div class="col-md-3 register-left">
             <img src="/image/logo.png" alt="Logo"/>
@@ -30,43 +30,53 @@
             <div class="tab-content" id="myTabContent">
                 <h3 class="register-heading">Đăng ký tài khoản</h3>
                 <div class="row register-form">
-                        <div class="col-md-12">
-                            <form action="{{route('register')}}" method="post" enctype="multipart/form-data">
-                                @csrf
-                                <div class="form-group">
-                                    <input type="email" class="form-control" placeholder="Email" value="" name="email"/>
-                                    <span style="color: red">@error('email'){{$message}}@enderror</span>
+                    <div class="col-md-12">
+                        <form action="{{route('register')}}" method="post" enctype="multipart/form-data">
+                            @csrf
+                            @if(session('success'))
+                                <div class="alert alert-success">
+                                    {{session('success')}}
                                 </div>
-                                <div class="form-group">
-                                    <input type="text" minlength="10" maxlength="10" name="phone" class="form-control" placeholder="Số liên lạc" value=""  />
-                                    <span style="color: red">@error('phone'){{$message}}@enderror</span>
+                            @endif
+                            @if(session('error'))
+                                <div class="alert alert-danger">
+                                    {{session('error')}}
                                 </div>
+                            @endif
+                            <div class="form-group">
+                                <input type="email" class="form-control" placeholder="Email" value="" name="email"/>
+                                <span style="color: red">@error('email'){{$message}}@enderror</span>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" minlength="10" maxlength="10" name="phone" class="form-control" placeholder="Số liên lạc" value=""  />
+                                <span style="color: red">@error('phone'){{$message}}@enderror</span>
+                            </div>
 
-                                <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="Tài khoản" value="" name="username"/>
-                                    <span style="color: red">@error('username'){{$message}}@enderror</span>
-                                </div>
-                                <div class="form-group">
-                                    <input type="password" class="form-control" placeholder="Mật khẩu" value="" name="password" />
-                                    <span style="color: red">@error('password'){{$message}}@enderror</span>
-                                </div>
-                                <div class="form-group">
-                                    <input type="password" class="form-control"  placeholder="Xác nhận mật khẩu" value="" name="confirm_password"/>
-                                    <span style="color: red">@error('confirm_password'){{$message}}@enderror</span>
-                                </div>
-                                <div class="form-group align-items-center remember">
-                                    <input type="checkbox" name="role" id="sinhvien" value="1" > Sinh viên
-                                </div>
-                                <div class="form-group align-items-center remember">
-                                    <input type="checkbox" name="role" id="giangvien" value="2" > Giảng viên
-                                </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Tài khoản" value="" name="username"/>
+                                <span style="color: red">@error('username'){{$message}}@enderror</span>
+                            </div>
+                            <div class="form-group">
+                                <input type="password" class="form-control" placeholder="Mật khẩu" value="" name="password" />
+                                <span style="color: red">@error('password'){{$message}}@enderror</span>
+                            </div>
+                            <div class="form-group">
+                                <input type="password" class="form-control"  placeholder="Xác nhận mật khẩu" value="" name="confirm_password"/>
                                 <span style="color: red">@error('confirm_password'){{$message}}@enderror</span>
-                                <div class="col-md-9">
-                                    <input type="submit" class="btnRegister"  value="Đăng ký"/>
-                                </div>
-                            </form>
-                        </div>
+                            </div>
+                            <div class="form-group align-items-center remember">
+                                <input type="checkbox" name="role" id="sinhvien" value="1" > Sinh viên
+                            </div>
+                            <div class="form-group align-items-center remember">
+                                <input type="checkbox" name="role" id="giangvien" value="2" > Giảng viên
+                            </div>
+                            <span style="color: red">@error('confirm_password'){{$message}}@enderror</span>
+                            <div class="col-md-9">
+                                <input type="submit" class="btnRegister"  value="Đăng ký"/>
+                            </div>
+                        </form>
                     </div>
+                </div>
             </div>
         </div>
     </div>

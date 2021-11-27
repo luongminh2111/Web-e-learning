@@ -7,6 +7,7 @@ use App\Models\Student;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
@@ -28,6 +29,18 @@ class UserController extends Controller
     public function post_register(Request $request)
     {
         $this->check_validate($request);
+        $check_email_exit = DB::table('users')
+            ->where('email',$request->email)
+            ->exists();
+        $check_acount_exit = DB::table('users')
+            ->where('username',$request->username)
+            ->exists();
+        if($check_email_exit == true){
+            return redirect()->back()->with('error','Email đã tồn tại, vui lòng nhập email khác.');
+        }
+        if ($check_acount_exit == true){
+            return redirect()->back()->with('error','Tên tài khoản đã được sử dụng, vui lòng nhập lại.');
+        }
         if($request['role']==2){
             $value ="lecture";
             User::create([
@@ -57,7 +70,7 @@ class UserController extends Controller
                 'phone'=>$request['phone'],
             ]);
         }
-        return redirect()->route('login');
+        return redirect()->back()->with('success','Bạn đã đăng ký thành công. Đăng nhập để sử dụng.');
     }
     public function login(){
         return view('auth.login');
