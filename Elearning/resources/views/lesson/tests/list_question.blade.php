@@ -61,10 +61,14 @@
                             @endif
                         </div>
                         <div class="row">
-                            <div class="col-5">
+                            <div class="col-2">
                             </div>
-                            <div class="col-2 upload">
+                            <div class="col-3 upload">
                                 <a href="{{route('lesson_create_question',[$course_id, $lesson_id])}}">Thêm mới</a>
+                            </div>
+                            <div class="col-2"></div>
+                            <div class="col-4 upload">
+                                <a href="{{route('question_bank_lesson',[$course_id, $lesson_id])}}">Thêm từ ngân hàng câu hỏi</a>
                             </div>
                         </div>
                     </div>

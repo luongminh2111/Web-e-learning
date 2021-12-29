@@ -98,7 +98,13 @@
                                     <div class="form-group row">
                                         <label for="answer" class="col-4 col-form-label">Đáp án chính xác </label>
                                         <div class="col-8">
-                                            <input  name="answer" class="form-control here" placeholder="Nhập A, B, C, D" type="text">
+                                            <select id="select" name="answer"  class="custom-select">
+                                                <option value=""></option>
+                                                <option value="A">A</option>
+                                                <option value="B">B</option>
+                                                <option value="C">C</option>
+                                                <option value="D">D</option>
+                                            </select>
                                             <span style="color: red">@error('answer'){{$message}}@enderror</span>
                                         </div>
                                     </div>

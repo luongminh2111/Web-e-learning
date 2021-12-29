@@ -47,9 +47,9 @@ class LessonController extends Controller
         $lesson = Lesson::find($slug);
         return view('lesson.lesson_views_detail',compact('lesson'));
     }
-    public function upload_lesson(){
+    public function upload_lesson($course_id, $subject_name){
         if (Auth::user()->role== "lecture"){
-            return view('lesson.upload_lesson');
+            return view('lesson.upload_lesson',compact('course_id','subject_name'));
         }
         else{
             return redirect()->with('error','error')->route('login');
@@ -57,19 +57,17 @@ class LessonController extends Controller
     }
     public function check_upload_lesson(Request $request){
         $request->validate([
-            'course_id'=>'required|string',
-            'subject_name'=>'required|string',
             'lesson_id'=>'required|numeric',
             'lesson_name'=>'required|string',
             'slug'=>'required'
         ]);
     }
-    public function post_upload_lesson(Request $request){
+    public function post_upload_lesson(Request $request, $course_id, $subject_name){
         $this->check_upload_lesson($request);
         $video_name = $request->video->getClientOriginalName();
         $request->video->move('lesson',$video_name);
         $check = DB::table('courses')
-            ->where('course_id','=',$request->course_id)
+            ->where('course_id','=',$course_id)
             ->get()->first();
         if(isset($check)){
             $check_lesson_id = DB::table('lessons')
@@ -79,8 +77,8 @@ class LessonController extends Controller
                 return redirect()->back()->with('error','bài học '.$request->lesson_id.' đã tồn tại, bạn muốn cập nhật?');
             }
             Lesson::create([
-                'course_id'=>$request->course_id,
-                'subject_name'=>$request->subject_name,
+                'course_id'=>$course_id,
+                'subject_name'=>$subject_name,
                 'lesson_id'=>$request->lesson_id,
                 'lesson_name'=>$request->lesson_name,
                 'video'=>$video_name,

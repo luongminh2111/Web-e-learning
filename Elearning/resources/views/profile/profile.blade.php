@@ -16,8 +16,6 @@
                     <a href="{{route('update_profile')}}" class="list-group-item list-group-item-action">Cập nhật thông tin</a>
                     <a href="{{route('change_password')}}" class="list-group-item list-group-item-action">Thay đổi mật khẩu</a>
                     <a href="{{route('history')}}" class="list-group-item list-group-item-action">Lịch sử khóa học</a>
-                    <a href="#" class="list-group-item list-group-item-action">Các khóa học đang học</a>
-                    <a href="#" class="list-group-item list-group-item-action">Các khóa học đã học</a>
                     <a href="#" class="list-group-item list-group-item-action">Các chứng chỉ đạt được</a>
                 </div>
             </div>

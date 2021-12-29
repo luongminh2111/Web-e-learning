@@ -17,8 +17,7 @@ class LessonTestsController extends Controller
         $list_question = DB::table('lesson_tests')
             ->where('course_id', '=', $course_id)
             ->where('lesson_id', '=',$lesson_id)
-            ->paginate(10);
-        Paginator::useBootstrap();
+            ->orderBy('question_id')->get()->all();
         return view('lesson.tests.list_question',compact('list_question',['course_id','lesson_id']));
     }
     public function lesson_create_question($course_id, $lesson_id){

@@ -48,10 +48,10 @@ class CourseController extends Controller
             ->paginate(10);
         Paginator::useBootstrap();
 
-        $result = DB::table('lessons')
+        $result1 = DB::table('lessons')
             ->where('course_id', '=', $course_id)
             ->get()->all();
-        $number_lesson = count($result);
+        $number_lesson = count($result1);
         if($count_check == $number_lesson){
             return view('course.show_test',compact('result','count'));
         }
@@ -95,7 +95,7 @@ class CourseController extends Controller
         $image_name = $request->des_image->getClientOriginalName();
         $request->des_image->move('image',$image_name);
         Course::create([
-            'lecture_email'=>$request->lecture_email,
+            'lecture_email'=>auth()->user()->email,
             'course_id'=>$request->course_id,
             'course_name'=>$request->course_name,
             'subject_name'=>$request->subject_name,

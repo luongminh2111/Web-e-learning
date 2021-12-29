@@ -56,7 +56,7 @@
                                     @if(count($list_question) > 0)
                                         @foreach($list_question as $list)
                                             <tr>
-                                                <td class="text-center">{{ $list->id }}</td>
+                                                <td class="text-center">{{ $list->question_id }}</td>
                                                 <td class="text-center">{{ $list->question }}</td>
                                                 <td class="text-center">{{ $list->point }}</td>
                                                 <td class="text-center"><a href="{{route('views_question_detail',[$list->course_id,$list->id])}}"><i class="fas fa-eye"></i></a></td>
@@ -69,10 +69,15 @@
                             @endif
                         </div>
                         <div class="row">
-                            <div class="col-5">
+                            <div class="col-2">
                             </div>
                             <div class="col-2 upload">
                                 <a href="{{route('create_question',$course_id)}}">Thêm mới</a>
+                            </div>
+                            <div class="col-2">
+                            </div>
+                            <div class="col-4 upload">
+                                <a href="{{route('question_bank_course',$course_id)}}">Thêm từ ngân hàng câu hỏi</a>
                             </div>
                         </div>
                     </div>

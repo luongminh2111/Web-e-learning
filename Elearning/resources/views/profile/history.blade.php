@@ -12,12 +12,10 @@
         <div class="row">
             <div class="col-md-3 ">
                 <div class="list-group ">
-                    <a href="{{route('profile')}}" class="list-group-item list-group-item-action">THÔNG TIN CÁ NHÂN</a>
+                    <a href="{{route('profile')}}" style="background-color: forestgreen" class="text-white list-group-item list-group-item-action">THÔNG TIN CÁ NHÂN</a>
                     <a href="{{route('update_profile')}}" class="list-group-item list-group-item-action">Cập nhật thông tin</a>
                     <a href="{{route('change_password')}}" class="list-group-item list-group-item-action">Thay đổi mật khẩu</a>
                     <a href="{{route('history')}}" class="list-group-item list-group-item-action active">Lịch sử khóa học</a>
-                    <a href="#" class="list-group-item list-group-item-action">Các khóa học đang học</a>
-                    <a href="#" class="list-group-item list-group-item-action">Các khóa học đã học</a>
                     <a href="#" class="list-group-item list-group-item-action">Các chứng chỉ đạt được</a>
                 </div>
             </div>
@@ -44,7 +42,7 @@
                                         @foreach ($histories->items() as $history)
                                             <tr>
                                                 <th scope="row">{{$history->id}}</th>
-                                                <td><a target="_blank" href="{{route('views_course',$history->course->slug)}}">{{$history->course->course_name}}</a></td>
+                                                <td><p target="_blank" href="{{route('views_course',$history->course->slug)}}">{{$history->course->course_name}}</p></td>
                                                 <td><a target="_blank" href="{{route('lesson_views',$history->lesson->slug)}}">Bài {{$history->lesson->lesson_id}}: {{$history->lesson->lesson_name}}</a></td>
                                                 <td>{{$history->created_at}}</td>
                                             </tr>

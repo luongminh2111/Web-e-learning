@@ -37,7 +37,7 @@
                         </div>
                         <div class="row">
                             <div class="col-md-12">
-                                <form action="{{route('post_upload_lesson')}}" method="post" enctype="multipart/form-data">
+                                <form action="{{route('post_upload_lesson',[$course_id, $subject_name])}}" method="post" enctype="multipart/form-data">
                                     @csrf
                                     @if(session('success'))
                                         <div class="alert alert-success">
@@ -50,17 +50,9 @@
                                         </div>
                                     @endif
                                     <div class="form-group row">
-                                        <label for="course_name" class="col-4 col-form-label">Mã khóa học</label>
+                                        <label for="course_id" class="col-4 col-form-label">Mã khóa học</label>
                                         <div class="col-8">
-                                            <input name="course_id"  class="form-control here" type="text">
-                                            <span style="color: red">@error('course_id'){{$message}}@enderror</span>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label for="subject_name" class="col-4 col-form-label">Môn học</label>
-                                        <div class="col-8">
-                                            <input name="subject_name" class="form-control here" type="text">
-                                            <span style="color: red">@error('subject_name'){{$message}}@enderror</span>
+                                           <p>{{$course_id}}</p>
                                         </div>
                                     </div>
                                     <div class="form-group row">

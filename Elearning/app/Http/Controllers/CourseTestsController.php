@@ -14,8 +14,8 @@ class CourseTestsController extends Controller
     public function list_question($course_id){
         $list_question = DB::table('course_tests')
             ->where('course_id', '=', $course_id)
-            ->paginate(10);
-        Paginator::useBootstrap();
+            ->orderBy('question_id')
+            ->get()->all();
         return view('course.tests.list_question',compact('list_question','course_id'));
     }
     public function create_question($course_id){
@@ -48,10 +48,9 @@ class CourseTestsController extends Controller
             return redirect()->with('error','error')->route('login');
         }
     }
-    public function check_validate_upload_question(Request $request){
+    public function check_validate_create_question(Request $request){
         $request->validate([
-            'course_id'=>'required|string',
-            'id'=>'required|numeric',
+            'question_id'=>'required|numeric',
             'question'=>'required|string',
             'choose_1'=>'required',
             'choose_2'=>'required',
@@ -63,7 +62,7 @@ class CourseTestsController extends Controller
     }
     public function check_exit_question_bank(Request $request){
         $result = DB::table('question_banks')
-            ->where('question',$request->question)
+            ->where('question','=', $request->question)
             ->get(['choose_1','choose_2','choose_3','choose_4'])->first();
         if($result != null){
             $arr1 = [$result->choose_1, $result->choose_2, $result->choose_3 , $result->choose_4];
@@ -82,15 +81,15 @@ class CourseTestsController extends Controller
         }
 
     }
-    public function post_create_question(Request $request)
+    public function post_create_question(Request $request, $course_id)
     {
-        $this->check_validate_upload_question($request);
-        if(CourseTests::where('course_id',$request->course_id)
-            ->where('id',$request->id)
+        $this->check_validate_create_question($request);
+        if(CourseTests::where('course_id',$course_id)
+            ->where('question_id',$request->question_id)
             ->exists()){
-            return redirect()->back()->with('error','Tải lên thất bại, ID câu hỏi đã tồn tại!');
+            return redirect()->back()->with('error','Tải lên thất bại, câu hỏi số '.$request->question_id.' đã tồn tại!');
         }
-        if(CourseTests::where('course_id',$request->course_id)
+        if(CourseTests::where('course_id',$course_id)
             ->where('question',$request->question)
             ->exists()){
             return redirect()->back()->with('error','Tải lên thất bại, câu hỏi đã tồn tại!');
@@ -98,8 +97,8 @@ class CourseTestsController extends Controller
         $username = Auth::user()->username;
         CourseTests::create([
             'username'=>$username,
-            'course_id'=>$request->course_id,
-            'id'=>$request->id,
+            'course_id'=>$course_id,
+            'question_id'=>$request->question_id,
             'question'=>$request->question,
             'choose_1'=>$request->choose_1,
             'choose_2'=>$request->choose_2,
@@ -111,10 +110,10 @@ class CourseTestsController extends Controller
 
         if($this->check_exit_question_bank($request) == true){
             $result = DB::table('courses')
-                ->where('course_id','=',$request->course_id)
+                ->where('course_id','=',$course_id)
                 ->get('subject_name')->first();
             QuestionBank::create([
-                'course_id'=>$request->course_id,
+                'course_id'=>$course_id,
                 'subject_name'=>$result->subject_name,
                 'question'=>$request->question,
                 'choose_1'=>$request->choose_1,

@@ -12,12 +12,10 @@
         <div class="row">
             <div class="col-md-3 ">
                 <div class="list-group ">
-                    <a href="{{route('profile')}}" class="list-group-item list-group-item-action active">THÔNG TIN CÁ NHÂN</a>
+                    <a href="{{route('profile')}}" style="background-color: forestgreen" class="text-white list-group-item list-group-item-action">THÔNG TIN CÁ NHÂN</a>
                     <a href="{{route('update_profile')}}" class="list-group-item list-group-item-action">Cập nhật thông tin</a>
                     <a href="{{route('change_password')}}" class="list-group-item list-group-item-action">Thay đổi mật khẩu</a>
                     <a href="{{route('history')}}" class="list-group-item list-group-item-action">Lịch sử khóa học</a>
-                    <a href="#" class="list-group-item list-group-item-action">Các khóa học đang học</a>
-                    <a href="#" class="list-group-item list-group-item-action">Các khóa học đã học</a>
                     <a href="#" class="list-group-item list-group-item-action">Các chứng chỉ đạt được</a>
                 </div>
             </div>

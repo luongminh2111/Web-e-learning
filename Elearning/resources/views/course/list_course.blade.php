@@ -42,8 +42,9 @@
                                         <th class="text-center">Môn học</th>
                                         <th class="text-center">Tên khóa học</th>
                                         <th class="text-center">Test</th>
-                                        <th class="text-center">Xem</th>
-                                        <th class="text-center">Chỉnh sửa</th>
+                                        <th class="text-center">View</th>
+                                        <th class="text-center">Edit</th>
+                                        <th class="text-center">Create</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -56,6 +57,7 @@
                                                 <td class="text-center"><a href="{{route('list_question', $list->course_id)}}"><i class="fas fa-file-alt"></i></a></td>
                                                 <td class="text-center"><a href="{{route('course_views_detail',$list->slug)}}"><i class="fas fa-eye"></i></a></td>
                                                 <td class="text-center"><a href="{{route('update_course', $list->slug)}}"><i class="fas fa-pen-alt"></i></a></td>
+                                                <td class="text-center"><a href="{{route('upload_lesson',[$list->course_id, $list->subject_name])}}"><i class="fas fa-folder-plus"></i></a></td>
                                             </tr>
                                         @endforeach
                                     @else

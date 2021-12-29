@@ -11,12 +11,10 @@
         <div class="row">
             <div class="col-md-3 ">
                 <div class="list-group ">
-                    <a href="{{route('profile')}}" style="background-color: forestgreen"  class="text-white list-group-item list-group-item-action">THÔNG TIN CÁ NHÂN</a>
+                    <a href="{{route('profile')}}" style="background-color: forestgreen" class="text-white list-group-item list-group-item-action">THÔNG TIN CÁ NHÂN</a>
                     <a href="{{route('update_profile')}}" class="list-group-item list-group-item-action active">Cập nhật thông tin</a>
                     <a href="{{route('change_password')}}" class="list-group-item list-group-item-action">Thay đổi mật khẩu</a>
                     <a href="{{route('history')}}" class="list-group-item list-group-item-action">Lịch sử khóa học</a>
-                    <a href="#" class="list-group-item list-group-item-action">Các khóa học đã học</a>
-                    <a href="#" class="list-group-item list-group-item-action">Các khóa học đã học</a>
                     <a href="#" class="list-group-item list-group-item-action">Các chứng chỉ đạt được</a>
                 </div>
             </div>
@@ -45,16 +43,16 @@
                                             </div>
                                         @endif
                                         <div class="form-group row">
-                                            <label for="username" class="col-4 col-form-label">Tài khoản *</label>
+                                            <label for="username" class="col-4 col-form-label">Tài khoản </label>
                                             <div class="col-8">
-                                                <input name="username" placeholder="Tài khoản" class="form-control here" type="text" value="<?php echo auth()->user()->username?>">
+                                                <p><?php echo auth()->user()->username?></p>
                                                 <span style="color: red">@error('username'){{$message}}@enderror</span>
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label for="email" class="col-4 col-form-label">Email *</label>
+                                            <label for="email" class="col-4 col-form-label">Email </label>
                                             <div class="col-8">
-                                                <input id="username" name="email" placeholder="Email" class="form-control here" type="text" value="<?php echo auth()->user()->email?>">
+                                                <p><?php echo auth()->user()->email?></p>
                                                 <span style="color: red">@error('email'){{$message}}@enderror</span>
                                             </div>
                                         </div>
@@ -68,7 +66,7 @@
                                         <div class="form-group row">
                                             <label for="first_name" class="col-4 col-form-label">Họ tên đệm</label>
                                             <div class="col-8">
-                                                <input id="name" name="first_name"  class="form-control here"  type="text">
+                                                <input id="name" name="first_name"   class="form-control here"  type="text">
                                                 <span style="color: red">@error('first_name'){{$message}}@enderror</span>
                                             </div>
                                         </div>
@@ -134,14 +132,14 @@
                                         <div class="form-group row">
                                             <label for="username" class="col-4 col-form-label">Tài khoản *</label>
                                             <div class="col-8">
-                                                <input name="username" placeholder="Tài khoản" class="form-control here" type="text" value="<?php echo auth()->user()->username?>">
+                                                <p><?php echo auth()->user()->username?></p>
                                                 <span style="color: red">@error('username'){{$message}}@enderror</span>
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label for="email" class="col-4 col-form-label">Email *</label>
+                                            <label for="email" class="col-4 col-form-label">Email </label>
                                             <div class="col-8">
-                                                <input id="username" name="email" placeholder="Email" class="form-control here" type="text" value="<?php echo auth()->user()->email?>">
+                                               <p><?php echo auth()->user()->email?></p>
                                                 <span style="color: red">@error('email'){{$message}}@enderror</span>
                                             </div>
                                         </div>

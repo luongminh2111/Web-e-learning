@@ -28,6 +28,7 @@
             @csrf
             @foreach($result as $item)
                 <div class="form-group mt-3 ml-4" id="quiz" style=" clear: both">
+
                     <h6>
                         <span>Câu {{$item->id}}</span>
                         <span>: {{$item->question}}</span>
@@ -42,15 +43,11 @@
                     <label for="choose_4">{{$item->choose_4}}</label>
                 </div>
             @endforeach
-            <div class="row">
-                <div class="offset-5 col-8">{{$result->links()}}</div>
-            </div>
-
-                <div class="form-group row">
-                    <div class="offset-5 col-8" style="margin-top:1% ">
-                        <button name="submit" type="submit" class="btn btn-primary">Nộp bài</button>
-                    </div>
+            <div class="form-group row">
+                <div class="offset-5 col-8" style="margin-top:1% ">
+                    <button name="submit" type="submit" class="btn btn-primary">Nộp bài</button>
                 </div>
+            </div>
         </form>
     </div>
 </div>

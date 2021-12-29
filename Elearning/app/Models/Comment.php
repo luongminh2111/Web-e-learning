@@ -21,6 +21,4 @@ class Comment extends Model
         'dislike',
         'commentString'
     ];
-    protected $primaryKey = 'id';
-    public $incrementing = true;
 }

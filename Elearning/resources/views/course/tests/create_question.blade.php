@@ -29,7 +29,7 @@
                         </div>
                         <div class="row">
                             <div class="col-md-12">
-                                <form action="{{route('post_create_question')}}" method="post" enctype="multipart/form-data">
+                                <form action="{{route('post_create_question',$course_id)}}" method="post" enctype="multipart/form-data">
                                     @csrf
                                     @if(session('success'))
                                         <div class="alert alert-success">
@@ -44,15 +44,14 @@
                                     <div class="form-group row">
                                         <label for="course_id" class="col-4 col-form-label">Mã khóa học</label>
                                         <div class="col-8">
-                                            <input name="course_id" class="form-control here" value="{{$course_id}}" type="text">
-                                            <span style="color: red">@error('course_id'){{$message}}@enderror</span>
+                                            <p class="text-center text-danger">{{$course_id}}</p>
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label for="id" class="col-4 col-form-label">Câu hỏi số </label>
+                                        <label for="question_id" class="col-4 col-form-label">Câu hỏi số </label>
                                         <div class="col-8">
-                                            <input name="id" class="form-control here" type="text">
-                                            <span style="color: red">@error('id'){{$message}}@enderror</span>
+                                            <input name="question_id" class="form-control here" type="text">
+                                            <span style="color: red">@error('question_id'){{$message}}@enderror</span>
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -93,7 +92,13 @@
                                     <div class="form-group row">
                                         <label for="answer" class="col-4 col-form-label">Đáp án chính xác </label>
                                         <div class="col-8">
-                                            <input  name="answer" class="form-control here" placeholder="Nhập A, B, C, D" type="text">
+                                            <select id="select" name="answer"  class="custom-select">
+                                                <option value=""></option>
+                                                <option value="A">A</option>
+                                                <option value="B">B</option>
+                                                <option value="C">C</option>
+                                                <option value="D">D</option>
+                                            </select>
                                             <span style="color: red">@error('answer'){{$message}}@enderror</span>
                                         </div>
                                     </div>
@@ -106,7 +111,7 @@
                                     </div>
                                     <div class="form-group row">
                                         <div class="offset-4 col-8" style="margin-top:1% ">
-                                            <button name="submit" type="submit" class="btn btn-primary">Tải lên</button>
+                                            <button name="submit" type="submit" class="btn btn-primary">Xác nhận tải lên</button>
                                         </div>
                                     </div>
                                 </form>

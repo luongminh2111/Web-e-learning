@@ -42,8 +42,8 @@
                                         <th class="text-center">Bài học</th>
                                         <th class="text-center">Tên bài giảng</th>
                                         <th class="text-center">Test</th>
-                                        <th class="text-center">Xem</th>
-                                        <th class="text-center">Chỉnh sửa</th>
+                                        <th class="text-center">View</th>
+                                        <th class="text-center">Edit</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -70,12 +70,6 @@
                             </div>
                             <div class="col-2">
                                 {{$list_lesson->links()}}
-                            </div>
-                        </div>
-                        <div class="row mt-5">
-                            <div class="col-5"></div>
-                            <div class="col-2 upload">
-                                <a href="{{route('upload_lesson')}}">Thêm mới</a>
                             </div>
                         </div>
                     </div>

@@ -125,7 +125,10 @@
                 <div class ="col-12" style="display: flex; align-items: center; margin-top: 2%; margin-bottom: 2%; background-color: #f7fcfc">
                     <div class ="col-1" style="display: inline-block;"><i class="far fa-user fa-3x"></i></div>
                     <div style="margin-left: 2%; width: 100%">
-                        <div><span>{{$comment->username}}</span><span style="margin-left: 2%; color: #AAAAAA; font-size: 10px">{{ date("d-m-Y", strtotime($comment->createDate))}}</span></div>
+                        <div>
+                            <span>{{$comment->username}}</span>
+                            <span style="margin-left: 2%; color: #AAAAAA; font-size: 10px"><?php echo date("d-m-Y") ?></span>
+                        </div>
                         <div ><h5>{{$comment->commentString}}</h5></div>
                         <div>
                             <span class="react likeReact">

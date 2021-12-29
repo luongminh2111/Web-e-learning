@@ -33,55 +33,55 @@
                                     <div class="form-group row">
                                         <label for="course_id" class="col-4 col-form-label">Mã khóa học</label>
                                         <div class="col-8">
-                                            <p>{{$result->course_id}}</p>
+                                            <p class="text-primary">{{$result->course_id}}</p>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label for="id" class="col-4 col-form-label">Câu hỏi số </label>
                                         <div class="col-8">
-                                            <p> {{$result->id}} </p>
+                                            <p class="text-primary"> {{$result->question_id}} </p>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label for="question" class="col-4 col-form-label">Nội dung câu hỏi</label>
                                         <div class="col-8">
-                                            <p> {{$result->question}}</p>
+                                            <p class="text-primary"> {{$result->question}}</p>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label for="choose_1" class="col-4 col-form-label">Đáp án A</label>
                                         <div class="col-8">
-                                            <p>{{$result->choose_1}}</p>
+                                            <p class="text-primary">{{$result->choose_1}}</p>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label for="choose_2" class="col-4 col-form-label">Đáp án B </label>
                                         <div class="col-8">
-                                            <p>{{$result->choose_2}}</p>
+                                            <p class="text-primary">{{$result->choose_2}}</p>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label for="choose_3" class="col-4 col-form-label">Đáp án C </label>
                                         <div class="col-8">
-                                            <p>{{$result->choose_3}}</p>
+                                            <p class="text-primary">{{$result->choose_3}}</p>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label for="choose_4" class="col-4 col-form-label">Đáp án D </label>
                                         <div class="col-8">
-                                            <p>{{$result->choose_4}}</p>
+                                            <p class="text-primary">{{$result->choose_4}}</p>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label for="answer" class="col-4 col-form-label">Đáp án chính xác </label>
                                         <div class="col-8">
-                                            <p>{{$result->answer}}</p>
+                                            <p class="text-primary">{{$result->answer}}</p>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label for="point" class="col-4 col-form-label">Điểm cho câu hỏi </label>
                                         <div class="col-8">
-                                            <p>{{$result->point}}</p>
+                                            <p class="text-primary">{{$result->point}}</p>
                                         </div>
                                     </div>
                                 </form>

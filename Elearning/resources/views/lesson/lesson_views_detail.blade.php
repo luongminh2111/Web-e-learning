@@ -77,7 +77,10 @@
                                         <div class="form-group row">
                                             <label for="video" class="col-4 col-form-label">Video</label>
                                             <div class="col-8">
-                                                <p>{{$lesson->video}}</p>
+                                                <video width="400" height="320" controls >
+                                                    <source src="/lesson/{{$lesson->video}}" type="video/mp4">
+                                                </video>
+                                                <p class="text-center">{{$lesson->video}}</p>
                                             </div>
                                         </div>
                                     </form>

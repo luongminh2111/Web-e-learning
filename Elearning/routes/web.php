@@ -54,10 +54,12 @@ Route::group(['prefix'=>'/BK-E-learning/Course','middleware'=>'auth'],function (
 });
 Route::group(['prefix'=>'/BK-E-learning/Question','middleware'=>'auth'], function (){
     Route::get('/Bank', [QuestionBankController::class, 'show'])->name('question_bank');
+    Route::get('/{is}/Bank', [QuestionBankController::class, 'insert_to_course'])->name('question_bank_course');
+    Route::get('/{is}/{id}/Bank', [QuestionBankController::class, 'insert_to_lesson'])->name('question_bank_lesson');
     Route::get('/{is}/bank-views-detail',[QuestionBankController::class, 'views_detail'])->name('question_bank_views_detail');
-    Route::get('/Thêm-câu-hỏi-{is}', [QuestionBankController::class,'insert_question'])->name('insert_question');
-    Route::post('/Kiểm-tra-khóa-học/Thêm-{is}',[QuestionBankController::class, 'post_insert_question'])->name('post_insert_question');
-    Route::post('/Kiểm-tra-bài-học/Thêm-{is}',[QuestionBankController::class, 'post_insert_lesson_question'])->name('post_insert_lesson_question');
+   // Route::get('/add-question-{is}', [QuestionBankController::class,'insert_question'])->name('insert_question');
+    Route::post('/course-test/{id}/add-{is}',[QuestionBankController::class, 'post_insert_question'])->name('post_insert_question');
+    Route::post('/{id}/lession-test/{are}/add-{is}',[QuestionBankController::class, 'post_insert_lesson_question'])->name('post_insert_lesson_question');
 
 
 });
@@ -67,7 +69,7 @@ Route::group(['prefix'=>'/BK-E-learning/Course','middleware'=>'auth'], function 
     Route::post('/view/{id}/Create-comment',[CommentController::class, 'post_create_comment'])->name('post_create_comment');
     Route::get('/{id}/List-question', [CourseTestsController::class, 'list_question'])->name('list_question');
     Route::get('/{id}/Create-question', [CourseTestsController::class, 'create_question'])->name('create_question');
-    Route::post('/Create-question',[CourseTestsController::class, 'post_create_question'])->name('post_create_question');
+    Route::post('/{id}/Create-question',[CourseTestsController::class, 'post_create_question'])->name('post_create_question');
 
     Route::get('/{id}/Update-question/{is}', [CourseTestsController::class ,'update_question'])->name('update_question');
     Route::post('{id}/{is}/Update-question', [CourseTestsController::class , 'post_update_question'])->name('post_update_question');
@@ -93,8 +95,8 @@ Route::group(['prefix'=>'/BK-E-learning/Lesson','middleware'=>'auth'], function 
 
     Route::get('/lesson-views-detail/{is}',[LessonController::class, 'lesson_views_detail'])->name('lesson_views_detail');
 
-    Route::get('/upload-lesson',[LessonController::class, 'upload_lesson'])->name('upload_lesson');
-    Route::post('/upload-lesson',[LessonController::class, 'post_upload_lesson'])->name('post_upload_lesson');
+    Route::get('/{id}/{is}/upload-lesson',[LessonController::class, 'upload_lesson'])->name('upload_lesson');
+    Route::post('/{id}/{is}/upload-lesson',[LessonController::class, 'post_upload_lesson'])->name('post_upload_lesson');
 
     Route::get('/update-lesson/{id}',[LessonController::class, 'update_lesson'])->name('update_lesson');
     Route::post('/{is}/{id}/{are}/update-lesson',[LessonController::class, 'post_update_lesson'])->name('post_update_lesson');

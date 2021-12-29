@@ -54,19 +54,19 @@
                                         <div class="form-group row">
                                             <label for="course_id" class="col-4 col-form-label">Mã khóa học </label>
                                             <div class="col-8">
-                                                <p>{{$course->course_id}}</p>
+                                                <p class="text-primary">{{$course->course_id}}</p>
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label for="subject_name" class="col-4 col-form-label">Môn học </label>
                                             <div class="col-8">
-                                                <p>{{$course->subject_name}}</p>
+                                                <p class="text-primary">{{$course->subject_name}}</p>
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label for="grade" class="col-4 col-form-label">Khối lớp</label>
                                             <div class="col-8">
-                                                <input  name="grade" class="form-control here" value="{{$course->grade}}" type="text">
+                                                <input name="grade" class="form-control here" value="{{$course->grade}}" type="text">
                                                 <span style="color: red">@error('grade'){{$message}}@enderror</span>
                                             </div>
                                         </div>
@@ -74,6 +74,7 @@
                                             <label for="description" class="col-4 col-form-label">Mô tả khóa học </label>
                                             <div class="col-8" >
                                                 <textarea class="form-control summary-ckeditor" name="description"></textarea>
+{{--                                                <input name="description" class="form-control here" value="{{$course->description}}" type="text">--}}
                                                 <span style="color: red">@error('description'){{$message}}@enderror</span>
                                             </div>
                                         </div>
@@ -82,7 +83,7 @@
                                             <label for="requirements" class="col-4 col-form-label">Yêu cầu của môn học</label>
                                             <div class="col-8" >
                                                 <textarea class="form-control summary-ckeditor" name="requirements" ></textarea>
-
+{{--                                                <input name="requirements" class="form-control here" value="{{$course->requirements}}" type="text">--}}
                                                 <span style="color: red">@error('requirements'){{$message}}@enderror</span>
                                             </div>
                                         </div>
@@ -90,6 +91,7 @@
                                             <label for="outcomes" class="col-4 col-form-label">Kết quả đạt được</label>
                                             <div class="col-8" >
                                                 <textarea class="form-control summary-ckeditor" name="outcomes"></textarea>
+{{--                                                <input name="outcomes" class="form-control here" value="{{$course->outcomes}}" type="text">--}}
                                                 <span style="color: red">@error('outcomes'){{$message}}@enderror</span>
                                             </div>
                                         </div>
@@ -102,9 +104,9 @@
                                         </div>
                                         <div class="form-group row">
                                             <label for="des_image" class="col-4 col-form-label">Ảnh hiện tại</label>
-                                            <div class="col-8">
-                                                <input type="text" class="form-control here" name="current_des_image" value="{{$course->des_image}}">
-                                            </div>
+                                            <img width="320" height="240" src="/image/{{$course->des_image}}" alt="ảnh khóa học">
+
+                                            <input style="border: none; outline: none; background-color: white"  type="text"  name="current_des_image" value="{{$course->des_image}}">
                                         </div>
                                         <div class="form-group row">
                                             <div class="custom-file ">
@@ -114,13 +116,14 @@
                                         </div>
                                         <div class="form-group row">
                                             <label for="current_video" class="col-4 col-form-label">Video hiện tại</label>
-                                            <div class="col-8">
-                                                <input type="text" class="form-control here" name="current_video" value="{{$course->video}}">
-                                            </div>
+                                            <video width="320" height="240" controls >
+                                                <source src="/movie/{{$course->video}}" type="video/mp4">
+                                            </video>
+                                            <input style="border: none; outline: none; background-color: white"  type="text" name="current_video" value="{{$course->video}}">
                                         </div>
                                         <div class="form-group row">
                                             <div class="custom-file ">
-                                                <label for="upload_video" class="col-4 col-form-label">Cập nhật video</label>
+                                                <label for="upldate_video" class="col-4 col-form-label">Cập nhật video</label>
                                                 <input type="file" name="update_video" >
                                             </div>
                                         </div>

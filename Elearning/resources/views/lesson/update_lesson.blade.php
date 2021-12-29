@@ -44,7 +44,7 @@
                             @endif
                             @if(isset($lesson))
                                 <div class="col-md-12" >
-                                    <form action="{{route('post_update_lesson',[$lesson->course_id, $lesson->subject_id, $lesson->lesson_id])}}" method="post" enctype="multipart/form-data">
+                                    <form action="{{route('post_update_lesson',[$lesson->course_id, $lesson->lesson_id, $lesson->subject_name])}}" method="post" enctype="multipart/form-data">
                                         @csrf
                                         @if(session('success'))
                                             <div class="alert alert-success">
@@ -60,12 +60,6 @@
                                             <label for="course_name" class="col-4 col-form-label">Mã khóa học </label>
                                             <div class="col-8">
                                                 <p>{{$lesson->course_id}}</p>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label for="subject_id" class="col-4 col-form-label">Mã môn học </label>
-                                            <div class="col-8">
-                                                <p>{{$lesson->subject_id}}</p>
                                             </div>
                                         </div>
                                         <div class="form-group row">
@@ -92,6 +86,9 @@
                                         <div class="form-group row">
                                             <label for="current-video" class="col-4 col-form-label">Video hiện tại</label>
                                             <div class="col-8">
+                                                <video width="320" height="240" controls >
+                                                    <source src="/lesson/{{$lesson->video}}" type="video/mp4">
+                                                </video>
                                                 <input style="border: none;" name="current_video" class="form-control here" value="{{$lesson->video}}" type="text">
                                                 <span style="color: red">@error('current_video'){{$message}}@enderror</span>
                                             </div>

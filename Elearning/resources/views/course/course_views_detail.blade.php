@@ -36,43 +36,45 @@
                                         <div class="form-group row">
                                             <label for="course_name" class="col-4 col-form-label">Tên khóa học</label>
                                             <div class="col-8">
-                                                <input class="form-control here" value="{{$course->course_name}}" type="text">
+                                                <p class="text-primary">{{$course->course_name}}</p>
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label for="subject_name" class="col-4 col-form-label">Mã môn học</label>
                                             <div class="col-8">
-                                                <input class="form-control here" value="{{$course->subject_name}}" type="text">
+                                                <p class="text-primary">{{$course->subject_name}}</p>
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label for="grade" class="col-4 col-form-label">Khối lớp</label>
                                             <div class="col-8">
-                                                <input class="form-control here" value="{{$course->grade}}" type="text">
+                                                <p class="text-primary">{{$course->grade}}</p>
+
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label for="description" class="col-4 col-form-label">Mô tả khóa học </label>
                                             <div class="col-8" >
-                                                <input class="form-control here" value="{{$course->description}}" type="text">
+                                                <p class="text-primary">{{$course->description}}</p>
+
                                             </div>
                                         </div>
 
                                         <div class="form-group row">
                                             <label for="requirements" class="col-4 col-form-label">Yêu cầu của môn học</label>
                                             <div class="col-8" >
-                                                <input class="form-control here" value="{{$course->requirements}}" type="text">
+                                                <p class="text-primary">{{$course->requirements}}</p>
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label for="outcomes" class="col-4 col-form-label">Kết quả đạt được</label>                                        <div class="col-8" >
-                                                <input class="form-control here" value="{{$course->outcomes}}" type="text">
+                                                <p class="text-primary">{{$course->outcomes}}</p>
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label for="slug" class="col-4 col-form-label">Liên kết</label>
                                             <div class="col-8">
-                                                <input class="form-control here" value="{{$course->slug}}" type="text">
+                                                <p class="text-primary">{{$course->slug}}</p>
                                             </div>
                                         </div>
                                         <div class="form-group row">
@@ -84,8 +86,10 @@
                                         <div class="form-group row">
                                             <label for="video" class="col-4 col-form-label">Video</label>
                                             <div class="col-8">
-                                                <input class="form-control here" value="{{$course->video}}" type="text" >
-                                            </div>
+                                                <video width="320" height="240" controls >
+                                                    <source src="/movie/{{$course->video}}" type="video/mp4">
+                                                </video>
+                                                <p class="text-center"> {{$course->video}}</p>
                                         </div>
                                     </form>
                                 </div>

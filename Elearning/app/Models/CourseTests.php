@@ -12,9 +12,10 @@ class CourseTests extends Model
     use HasApiTokens, HasFactory, Notifiable;
 
     protected $fillable = [
+        'id',
         'username',
         'course_id',
-        'id',
+        'question_id',
         'question',
         'choose_1',
         'choose_2',
@@ -23,6 +24,4 @@ class CourseTests extends Model
         'answer',
         'point',
     ];
-    protected $primaryKey = 'id';
-    public $incrementing = false;
 }

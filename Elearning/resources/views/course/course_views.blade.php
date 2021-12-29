@@ -92,24 +92,37 @@
                 <?php $check_final_test_exits = DB::table('course_achievements')
                     ->where('username',auth()->user()->username)
                     ->where('course_id','=',$lesson->course_id)
-                    ->get('final_score')->first();
+                    ->get()->first();
+                //dd($check_final_test_exits);
                 ?>
-                @if($check_final_test_exits != null)
-                    <p style="background-color: white; border: none" class="text-primary">
-                        <i style="float: left" class="far fa-check-square text-danger mr-3"></i>
-                        Bài kiểm tra cuối khóa :
-                        <span class="text-danger"> Đã hoàn thành</span>
-                    </p>
+                @if(isset($check_final_test_exits))
+                    @if($check_final_test_exits->final_score != null)
+                        <p style="background-color: white; border: none" class="text-primary">
+                            <i style="float: left" class="far fa-check-square text-danger mr-3"></i>
+                            Bài kiểm tra cuối khóa :
+                            <span class="text-danger"> Đã hoàn thành</span>
+                        </p>
+                    @else
+                        <a class="final-test" style="text-decoration: none;" href="{{route('course_final_test',[$course->course_id, $count_check])}}">
+                            <i class="far fa-square"></i>Kiểm tra sau khóa học
+                        </a>
+                            @if(session('test_error'))
+                                <div class="alert alert-danger">
+                                    {{session('test_error')}}
+                                </div>
+                            @endif
+                    @endif
                 @else
                     <a class="final-test" style="text-decoration: none;" href="{{route('course_final_test',[$course->course_id, $count_check])}}">
                         <i class="far fa-square"></i>Kiểm tra sau khóa học
                     </a>
-                        @if(session('test_error'))
-                            <div class="alert alert-danger">
-                                {{session('test_error')}}
-                            </div>
-                        @endif
+                    @if(session('test_error'))
+                        <div class="alert alert-danger">
+                            {{session('test_error')}}
+                        </div>
+                    @endif
                 @endif
+
             </div>
         </div>
         <div class="col-md-10" style="margin-top: 5%">
@@ -127,7 +140,10 @@
                 <div class ="col-12" style="display: flex; align-items: center; margin-top: 2%; margin-bottom: 2%; background-color: #f7fcfc">
                     <div class ="col-1" style="display: inline-block;"><i class="far fa-user fa-3x"></i></div>
                     <div style="margin-left: 2%; width: 100%">
-                        <div><span>{{$comment->username}}</span><span style="margin-left: 2%; color: #AAAAAA; font-size: 10px">{{ date("d-m-Y", strtotime($comment->createDate))}}</span></div>
+                        <div>
+                            <span>{{$comment->username}}</span>
+                            <span style="margin-left: 2%; color: #AAAAAA; font-size: 10px"><?php echo date("d-m-Y") ?></span>
+                        </div>
                         <div ><h5>{{$comment->commentString}}</h5></div>
                         <div>
                             <span class="react likeReact">

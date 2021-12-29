@@ -73,6 +73,16 @@
                             <hr>
                         </div>
                         <div class="row">
+                            @if(session('success'))
+                                <div class="alert alert-success">
+                                    {{session('success')}}
+                                </div>
+                            @endif
+                            @if(session('error'))
+                                <div class="alert alert-danger">
+                                    {{session('error')}}
+                                </div>
+                            @endif
                             @if(isset($list_question))
                                 <table class="table table-hover">
                                     <thead>
@@ -81,7 +91,9 @@
                                         <th class="text-center">Mã môn học</th>
                                         <th class="text-center">Câu hỏi</th>
                                         <th class="text-center">Xem</th>
+                                        @if(isset($course_id))
                                         <th class="text-center">Thêm</th>
+                                        @endif
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -92,7 +104,24 @@
                                                 <td class="text-center">{{ $list->subject_name }}</td>
                                                 <td class="text-center">{{ $list->question }}</td>
                                                 <td class="text-center"><a href="{{route('question_bank_views_detail',$list->id)}}"><i class="fas fa-eye"></i></a></td>
-                                                <td class="text-center"><a href="{{route('insert_question',$list->id)}}">Thêm</a></td>
+                                                @if(isset($course_id))
+                                                    @if(!isset($lesson_id))
+                                                        <form action="{{route('post_insert_question',[$course_id, $list->id])}}" method="post" enctype="multipart/form-data" >
+                                                            @csrf
+                                                            <td class="text-center">
+                                                                <button type="submit" class="btn btn-primary"> Thêm</button>
+                                                            </td>
+                                                        </form>
+
+                                                    @else
+                                                        <form action="{{route('post_insert_lesson_question',[$course_id, $lesson_id, $list->id])}}" method="post" enctype="multipart/form-data" >
+                                                            @csrf
+                                                            <td class="text-center">
+                                                                <button type="submit" class="btn btn-primary"> Thêm</button>
+                                                            </td>
+                                                        </form>
+                                                    @endif
+                                                @endif
                                             </tr>
                                         @endforeach
                                     @endif

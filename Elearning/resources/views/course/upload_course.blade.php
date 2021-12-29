@@ -112,12 +112,6 @@
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label for="email" class="col-4 col-form-label">Email</label>
-                                        <div class="col-8">
-                                            <input name="lecture_email" class="form-control here" value="<?php echo auth()->user()->email ?>" type="text">
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
                                         <div class="offset-4 col-8" style="margin-top:1% ">
                                             <button name="submit" type="submit" class="btn btn-primary">Tải lên</button>
                                         </div>

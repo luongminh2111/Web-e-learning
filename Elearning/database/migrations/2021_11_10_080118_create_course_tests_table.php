@@ -14,9 +14,10 @@ class CreateCourseTestsTable extends Migration
     public function up()
     {
         Schema::create('course_tests', function (Blueprint $table) {
+            $table->id();
             $table->string('username');
             $table->string('course_id');
-            $table->integer('id')->primary();
+            $table->integer('question_id');
             $table->string('question');
             $table->string('choose_1');
             $table->string('choose_2');
